@@ -17,14 +17,18 @@ app.use(express.urlencoded({ extended: true }));
 // Gmail configuration from environment variables
 const GMAIL_CONFIG = {
   host: 'smtp.gmail.com',
-  port: 587,
-  secure: false, // Use TLS
+  port: 465,
+  secure: true, // SSL
   auth: {
     user: process.env.GMAIL_USER || 'ivyresort449@gmail.com',
-    pass: process.env.GMAIL_PASS || 'wiibwjjeonsitmri' // App password
+    pass: process.env.GMAIL_PASS || 'wiibwjjeonsitmri'
   },
+  pool: true,
+  connectionTimeout: 20000,
+  greetingTimeout: 10000,
+  socketTimeout: 20000,
   tls: {
-    rejectUnauthorized: false
+    rejectUnauthorized: true
   }
 };
 
@@ -300,3 +304,4 @@ app.listen(PORT, () => {
   console.log(`📧 Email endpoint: /api/send-email`);
   console.log(`🏥 Health check: /api/health`);
 });
+
